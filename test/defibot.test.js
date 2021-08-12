@@ -1188,7 +1188,7 @@ contract('DefiBot', function (accounts) {
         })
         it('check that eth is in owner address', async () => {
             const ethBal = await web3.eth.getBalance(owner);
-            console.log(web3.utils.fromWei(ethBal, 'ether', 'is presnt in owner address'))
+            console.log(web3.utils.fromWei(ethBal, 'ether'), 'eth is presnt in owner address')
 
         })
 
@@ -1758,7 +1758,7 @@ contract('DefiBot', function (accounts) {
             }
         ], "0x028171bCA77440897B824Ca71D1c56caC55b68A3")
         const DefiBotaDaiBal = await aDaiInstance.methods.balanceOf(DefiBotAddress).call()
-        
+
         assert(Number(web3.utils.fromWei(DefiBotaDaiBal, 'ether')) === 0, 'total position not liquidated')
         console.log(web3.utils.fromWei(DefiBotaDaiBal, 'ether'), 'is new aDai balance of defibot contract')
 
