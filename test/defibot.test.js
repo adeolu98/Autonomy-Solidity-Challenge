@@ -1758,6 +1758,7 @@ contract('DefiBot', function (accounts) {
             }
         ], "0x028171bCA77440897B824Ca71D1c56caC55b68A3")
         const DefiBotaDaiBal = await aDaiInstance.methods.balanceOf(DefiBotAddress).call()
+        
         assert(Number(web3.utils.fromWei(DefiBotaDaiBal, 'ether')) === 0, 'total position not liquidated')
         console.log(web3.utils.fromWei(DefiBotaDaiBal, 'ether'), 'is new aDai balance of defibot contract')
 
