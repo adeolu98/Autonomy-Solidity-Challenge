@@ -4,26 +4,21 @@ pragma solidity >=0.4.22 <0.9.0;
 import './interfaces/IAAVE.sol';
 import './interfaces/IUniswap.sol';
 import './interfaces/IERC20.sol';
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 
-contract DefiBot{
+contract DefiBot is Ownable{
     address DAI ;
-    address AAVE;
+    address AAVE; 
     address UNISWAP;
-    address public owner; 
     
     constructor (address dai, address aave, address uniswap){
         DAI = dai;
         AAVE = aave;
         UNISWAP = uniswap;
-        owner = msg.sender;
+    
     }
     
-
-    modifier onlyOwner(){
-        require(msg.sender == owner, 'cant call this contract');
-        _;
-    }
 
     function depositOnAave() public onlyOwner{
         // transferFrom msg.sender to contract 
@@ -46,7 +41,7 @@ contract DefiBot{
         
         IERC20(DAI).approve(UNISWAP, IERC20(DAI).balanceOf(address(this)) );
         //// swap for eth on uniswap and pay owner 
-        IUniswapV2Router01(UNISWAP).swapExactTokensForETH(IERC20(DAI).balanceOf(address(this)), 0, path, owner, block.timestamp + 30 minutes);
+        IUniswapV2Router01(UNISWAP).swapExactTokensForETH(IERC20(DAI).balanceOf(address(this)), 0, path, owner(), block.timestamp + 30 minutes);
         
     }
 }
